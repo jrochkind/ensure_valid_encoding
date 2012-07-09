@@ -25,6 +25,10 @@ bad_utf8 = "M\xE9xico".force_encoding("UTF-8")
 
 EnsureValidEncoding.ensure_valid_encoding(bad_utf8)
 # => raises a Encoding::InvalidByteSequenceError
+#    Note well, sadly, for performance and pain-in-the-neck reasons,
+#    this will not be filled out with byte number, preceeding or succeeding
+#    bytes, or any other metadata normally included with an InvalidByteSequenceError
+#    from stdlib. 
 ~~~~
 
 Uses the same options as String#encode, `:invalid => :replace`, possibly
@@ -65,33 +69,35 @@ be anything.
 You know what character encoding the textual data _claims_ to be, what it
 _should_ be, and what it _usually_ is.  But occasionally it may have bad bytes
 in it, due to data corruption, due to mistakes, due to mis-advertised encoding, 
-due to bugs upstream, do to anything. 
+due to bugs upstream, due to anything. 
 
 What do you do?  If you do nothing, in cases of such corruption, then 
 eventually your code will _probably_ (but not neccesarily) do something 
 that causes some kind of exception to be raised, could be an 
-Encoding::InvalidByteSequenceError, could be something else from somewhere else.
-At this point, if you're not catching it, you're application dies hard. 
+Encoding::InvalidByteSequenceError, could be something else from somewhere else. 
+May be hard to predict exactly when, if, and what will be raised. 
+But when it does happen, if you're not rescue'ing the exception, 
+your application dies hard. 
 
-Or maybe you catch all possible exceptions caused by bad bytes. Or you actually
-guard by testing `input_str.valid_encoding?` and discover it's not. Then what?
-You could ignore this particular file/stream of input, and have your application
-go on it's merry way. 
+Okay, so maybe you manage to catch the excpetions exceptions. Or more 
+conveniently you guard by testing `input_str.valid_encoding?` instead of waiting
+for an exception to be raised. Then what? You could ignore this particular 
+file/stream of input, and have your application go on it's merry way. 
 
 But what if you want to do what most _every other_ mature application that
 displays textual streams does in the case of bad bytes? Display the parts of the
 string that _can_ be displayed, replace the other parts with a replacement
-string of some sort. It's what `bash` does. It's what `vim` does.  It is
-surprisingly tricky to do with the ruby 1.9.3 stdlib, or even with 'iconv'. 
+string of some sort. 
 
 String#encode gives you an API for using a replacement char when converting/transcoding
 from one encoding to another, but that's not where we are. We know what encoding
 the string is supposed to be, we don't know any other better encoding to 
 transcode it to -- we just want to do the best we can with it, substituting
-any illegal bytes. 
+any illegal bytes. It's what `bash` does. It's what `vim` does.  It is
+surprisingly tricky to do with the ruby 1.9.3 stdlib, or even with 'iconv'. 
 
-So there you go, now you can do it. Maybe not as performant as if it were
-implemented in C like stdlib char encoding routines, but, hey. 
+So there you go, now you can do it with this gem. Maybe not as performant 
+as if it were implemented in C like stdlib char encoding routines, but, hey. 
 
 **Note well:** A buncha [people on reddit](http://www.reddit.com/r/ruby/comments/sfceq) don't see why you'd ever want to do
 this. If you agree, then, well, don't do it. 
