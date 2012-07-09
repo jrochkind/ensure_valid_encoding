@@ -32,7 +32,8 @@ EnsureValidEncoding.ensure_valid_encoding(bad_utf8)
 ~~~~
 
 Uses the same options as String#encode, `:invalid => :replace`, possibly
-combined with `:replace => custom_replace_string`. 
+combined with `:replace => custom_replace_string` (which can be empty
+string if you like). 
 
 ~~~ruby
 EnsureValidEncoding.ensure_valid_encoding(bad_utf8, :invalid => :replace)
