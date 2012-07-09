@@ -4,8 +4,8 @@ require File.expand_path('../lib/ensure_valid_encoding/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Jonathan Rochkind"]
   gem.email         = ["jonathan@dnil.net"]
-  gem.summary   = %q{For ruby 1.9 strings, fail quickly in on invalid encodings _or_ replace 
-bad bytes with replacement strings, _without_ a transcode to a different encoding.}
+  gem.summary   = %q{For ruby 1.9 strings, replace bad bytes in given encoding with replacement strings, _or_ fail quickly on invalid encodings --  _without_ a transcode to a different encoding. 
+}
   gem.homepage      = "https://github.com/jrochkind/ensure_valid_encoding"
 
   gem.files         = `git ls-files`.split($\)
