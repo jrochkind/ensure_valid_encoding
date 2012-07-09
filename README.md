@@ -56,7 +56,13 @@ include EnsureValidEncoding
 ensure_valid_encoding(bad_str)
 ~~~
 
-## Contributing
+## Developing/Contributiong
+
+Some tests written with minitest/spec. Run with `rake test`. 
+
+Gem built with bundler rake tests. `rake build`, `rake install`, `rake release`. 
+
+Suggestions/improvements welcome. 
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
