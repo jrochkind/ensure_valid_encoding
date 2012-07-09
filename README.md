@@ -1,7 +1,6 @@
 # EnsureValidEncoding
 
-For ruby 1.9 strings, fail quickly in on invalid encodings _or_ replace 
-bad bytes with replacement strings, _without_ a transcode to a different encoding. 
+For ruby 1.9 strings, replace bad bytes in given encoding with replacement strings, _or_ fail quickly on invalid encodings --  _without_ a transcode to a different encoding. 
 
 ## Installation
 
