@@ -79,7 +79,7 @@ May be hard to predict exactly when, if, and what will be raised.
 But when it does happen, if you're not rescue'ing the exception, 
 your application dies hard. 
 
-Okay, so maybe you manage to catch the excpetions exceptions. Or more 
+Okay, so maybe you manage to catch the exceptions. Or more 
 conveniently you guard by testing `input_str.valid_encoding?` instead of waiting
 for an exception to be raised. Then what? You could ignore this particular 
 file/stream of input, and have your application go on it's merry way. 
@@ -102,9 +102,8 @@ as if it were implemented in C like stdlib char encoding routines, but, hey.
 **Note well:** A buncha [people on reddit](http://www.reddit.com/r/ruby/comments/sfceq) don't see why you'd ever want to do
 this. If you agree, then, well, don't do it. 
 
-**Also:** I have [filed a feature request](https://bugs.ruby-lang.org/issues/6321) for ruby stdlib. The ruby core team
-also thinks nobody would ever want to do this. shrug. 
-
+**Also:** I have [filed a feature request](https://bugs.ruby-lang.org/issues/6321) for ruby stdlib. Developer from 
+ruby core team also thinks it's an unusually odd thing to do. shrug. 
 
 ## Developing/Contributing
 
