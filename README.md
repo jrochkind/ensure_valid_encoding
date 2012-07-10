@@ -35,12 +35,12 @@ combined with `:replace => custom_replace_string` (which can be empty
 string if you like). 
 
 ~~~ruby
-EnsureValidEncoding.ensure_valid_encoding(bad_utf8, :invalid => :replace)
+fixed = EnsureValidEncoding.ensure_valid_encoding(bad_utf8, :invalid => :replace)
 # => Replaces invalid bytes with default replacement char. 
 #    For unicode encodings, that's unicode replacement code, "\uFFFD",
 #    otherwise, '?'
 
-EnsureValidEncoding.ensure_valid_encoding(bad_utf8, :invalid => :replace, :replace => "*")
+fixed = EnsureValidEncoding.ensure_valid_encoding(bad_utf8, :invalid => :replace, :replace => "*")
 # => "M*xico"
 ~~~
 
@@ -57,7 +57,7 @@ methods too:
 
 ~~~ruby
 include EnsureValidEncoding
-ensure_valid_encoding(bad_str)
+fixed = ensure_valid_encoding(bad_str)
 ~~~
 
 ## Rationale
