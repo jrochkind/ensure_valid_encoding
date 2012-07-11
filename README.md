@@ -63,8 +63,8 @@ fixed = ensure_valid_encoding(bad_str)
 ## Rationale
 
 You are taking textual input from some external source. Could be user input, 
-could be a user-uploaded file of some kind, could be a a third party API, could
-be anything. 
+could be a user-uploaded file of some kind, could be anchient usenet archives,
+could be a a third party API response or web scrape, could be anything. 
 
 You know what character encoding the textual data _claims_ to be, what it
 _should_ be, and what it _usually_ is.  But occasionally it may have bad bytes
