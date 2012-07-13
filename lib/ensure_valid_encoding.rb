@@ -60,13 +60,7 @@ module EnsureValidEncoding
                                                     :replace => '?' )
         )
 
-        return str.chars.collect do |c|
-          if c.valid_encoding?
-            c
-          else
-            replacement_char
-          end
-        end.join
+        return str.chars.collect { |c| c.valid_encoding? ? c : replacement_char }.join
       end
     end
     
