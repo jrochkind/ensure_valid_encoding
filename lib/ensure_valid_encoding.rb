@@ -50,18 +50,21 @@ module EnsureValidEncoding
       else   
         # :replace => :invalid, 
         # actually need to go through chars to replace bad ones
+
+        replacement_char = options[:replace] || (
+           # UTF-8 for unicode replacement char, encode in
+           # encoding of input string, using '?' as a fallback where
+           # it can't be (which should be non-unicode encodings)
+           "\uFFFD".force_encoding("UTF-8").encode( str.encoding,
+                                                    :undef => :replace,
+                                                    :replace => '?' )
+        )
+
         return str.chars.collect do |c|
           if c.valid_encoding?
             c
           else
-            options[:replace] || (
-              # UTF-8 for unicode replacement char, encode in
-              # encoding of input string, using '?' as a fallback where
-              # it can't be (which should be non-unicode encodings)
-              "\uFFFD".force_encoding("UTF-8").encode( str.encoding, 
-                                                       :undef => :replace, 
-                                                       :replace => '?' )
-             )
+            replacement_char
           end
         end.join
       end
