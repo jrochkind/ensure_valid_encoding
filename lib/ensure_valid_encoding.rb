@@ -55,12 +55,13 @@ module EnsureValidEncoding
             c
           else
             options[:replace] || (
-             # surely there's a better way to tell if
-             # an encoding is a 'Unicode encoding form'
-             # than this? What's wrong with you ruby 1.9?
-             str.encoding.name.start_with?('UTF') ?
-               "\uFFFD".force_encoding(str.encoding) :
-               "?".force_encoding(str.encoding) )
+              # UTF-8 for unicode replacement char, encode in
+              # encoding of input string, using '?' as a fallback where
+              # it can't be (which should be non-unicode encodings)
+              "\uFFFD".force_encoding("UTF-8").encode( str.encoding, 
+                                                       :undef => :replace, 
+                                                       :replace => '?' )
+             )
           end
         end.join
       end
