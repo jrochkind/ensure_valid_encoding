@@ -29,7 +29,7 @@ module EnsureValidEncoding
   #     ensure_valid_encoding( some_string, :invalid => :replace)
   #     ensure_valid_encoding( some_string, :invalid => :replace, :replace => '')
   #     ensure_valid_encoding( some_string, :invalid => :replace, :replace => "*")
-  def self.ensure_valid_encoding(str, options = {})
+    def self.ensure_valid_encoding(str, options = {})
       # Can do nothing in ruby 1.8.x
       return str unless str.respond_to?(:encoding)
       
