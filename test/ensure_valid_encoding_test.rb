@@ -6,6 +6,7 @@ require 'ensure_valid_encoding'
 describe EnsureValidEncoding do
   before do
     @bad_bytes_utf8   = "M\xE9xico".force_encoding("UTF-8")  
+    @bad_bytes_utf16  = "M\x00\xDFxico".force_encoding( Encoding::UTF_16LE )
     @bad_bytes_ascii  = "M\xA1xico".force_encoding("ASCII")
   end
   
@@ -19,6 +20,11 @@ describe EnsureValidEncoding do
     EnsureValidEncoding.ensure_valid_encoding(@bad_bytes_utf8, 
         :invalid => :replace).
       must_equal("M\uFFFDxico")
+  end
+
+  it "replaces with unicode relacement string for UTF16LE" do
+    assert EnsureValidEncoding.ensure_valid_encoding(@bad_bytes_utf16,
+        :invalid => :replace).valid_encoding?
   end
   
   it "replaces with chosen replacement string" do

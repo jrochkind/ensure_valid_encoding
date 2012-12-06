@@ -63,8 +63,8 @@ fixed = ensure_valid_encoding(bad_str)
 ## Rationale
 
 You are taking textual input from some external source. Could be user input, 
-could be a user-uploaded file of some kind, could be a a third party API, could
-be anything. 
+could be a user-uploaded file of some kind, could be anchient usenet archives,
+could be a a third party API response or web scrape, could be anything. 
 
 You know what character encoding the textual data _claims_ to be, what it
 _should_ be, and what it _usually_ is.  But occasionally it may have bad bytes
@@ -99,11 +99,10 @@ surprisingly tricky to do with the ruby 1.9.3 stdlib, or even with 'iconv'.
 So there you go, now you can do it with this gem. Maybe not as performant 
 as if it were implemented in C like stdlib char encoding routines, but, hey. 
 
-**Note well:** A buncha [people on reddit](http://www.reddit.com/r/ruby/comments/sfceq) don't see why you'd ever want to do
-this. If you agree, then, well, don't do it. 
-
-**Also:** I have [filed a feature request](https://bugs.ruby-lang.org/issues/6321) for ruby stdlib. Developer from 
-ruby core team also thinks it's an unusually odd thing to do. shrug. 
+ 
+**Note:** I have [filed a feature request](https://bugs.ruby-lang.org/issues/6321) for ruby stdlib. Developer from 
+ruby core team also thinks it's an unusually odd thing to do. Most of rubydom seems to agree. Ce la vie. Me and
+many of my colleagues need to do this all the time, but if you don't, don't do it. 
 
 ## Developing/Contributing
 

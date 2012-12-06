@@ -29,7 +29,7 @@ module EnsureValidEncoding
   #     ensure_valid_encoding( some_string, :invalid => :replace)
   #     ensure_valid_encoding( some_string, :invalid => :replace, :replace => '')
   #     ensure_valid_encoding( some_string, :invalid => :replace, :replace => "*")
-  def self.ensure_valid_encoding(str, options = {})
+    def self.ensure_valid_encoding(str, options = {})
       # Can do nothing in ruby 1.8.x
       return str unless str.respond_to?(:encoding)
       
@@ -50,19 +50,17 @@ module EnsureValidEncoding
       else   
         # :replace => :invalid, 
         # actually need to go through chars to replace bad ones
-        return str.chars.collect do |c|
-          if c.valid_encoding?
-            c
-          else
-            options[:replace] || (
-             # surely there's a better way to tell if
-             # an encoding is a 'Unicode encoding form'
-             # than this? What's wrong with you ruby 1.9?
-             str.encoding.name.start_with?('UTF') ?
-               "\uFFFD".force_encoding(str.encoding) :
-               "?".force_encoding(str.encoding) )
-          end
-        end.join
+
+        replacement_char = options[:replace] || (
+           # UTF-8 for unicode replacement char \uFFFD, encode in
+           # encoding of input string, using '?' as a fallback where
+           # it can't be (which should be non-unicode encodings)
+           "\xEF\xBF\xBD".force_encoding("UTF-8").encode( str.encoding,
+                                                    :undef => :replace,
+                                                    :replace => '?' )
+        )
+
+        return str.chars.collect { |c| c.valid_encoding? ? c : replacement_char }.join
       end
     end
     
