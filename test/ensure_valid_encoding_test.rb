@@ -77,4 +77,14 @@ describe EnsureValidEncoding do
     
   end
   
+  describe "works for nil input" do
+    it "with ensure_valid_encoding" do
+      EnsureValidEncoding.ensure_valid_encoding(nil).must_be_nil
+    end
+    
+    it "with ensure_valid_encoding!" do
+      EnsureValidEncoding.ensure_valid_encoding!(nil).must_be_nil
+    end
+    
+  end
 end

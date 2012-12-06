@@ -72,6 +72,9 @@ module EnsureValidEncoding
     #
     # ensure_valid_encoding!( some_string, :invalid => :replace )
     def self.ensure_valid_encoding!(str, options = {})
+      # convenient to allow nil to be passed in, and just returned
+      return nil if str.nil?
+      
       str.replace(  ensure_valid_encoding(str, options) )
     end
     
