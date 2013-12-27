@@ -1,7 +1,7 @@
 # Discontinued
 *See String#scrub, and backports and polyfills*
 
-This gem was written before MRI 2.1 introduced `String#scrub`, which provides the key functionality of this gem, replacing invalid bytes without a transcode.  With MRI 2.1 out, it has been discontinued in favor of alternatives that provide scrub-compatible backports/polyfills. 
+This gem was written before MRI 2.1 introduced `String#scrub`, which provides the key functionality of this gem, replacing invalid bytes without a transcode.  With MRI 2.1 out, `ensure_valid_encoding` has been discontinued in favor `String#scrub` and alternatives that provide scrub-compatible backports/polyfills.
 
 * In MRI 2.1, use stdlib [String.scrub](https://github.com/ruby/ruby/blob/1e8a05c1dfee94db9b6b825097e1d192ad32930a/string.c#L7772)
 * In MRI 2.0, use the backport of the 2.1 C code in the [string-scrub](https://github.com/hsbt/string-scrub) gem.
